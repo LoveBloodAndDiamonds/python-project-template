@@ -5,7 +5,8 @@
     "**/__pycache__",
     "**/.venv",
     "**/.git",
-    "**/.idea"
+    "**/.idea",
+    "**/migrations"
   ],
   "venvPath": ".",
   "venv": ".venv",

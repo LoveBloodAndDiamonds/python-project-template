@@ -9,6 +9,9 @@ WORKDIR /app
 # Устанавливаем uv
 RUN pip install --no-cache-dir uv
 
+# Настраиваем режим работы uv
+ENV UV_LINK_MODE=copy
+
 # Копируем зависимости
 COPY uv.lock pyproject.toml /app/
 
