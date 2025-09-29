@@ -8,7 +8,7 @@ services:
       - ./app:/app/app
       - ./logs:/app/logs
     command: sh -c "uv run python3 -m app"
-    restart: always
+    restart: unless-stopped
     logging:
       driver: "json-file"
       options:
