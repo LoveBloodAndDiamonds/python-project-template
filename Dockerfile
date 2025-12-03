@@ -3,9 +3,6 @@ FROM python:3.13-slim
 # Определяем рабочую директорию
 WORKDIR /app
 
-# Устанавливаем git и системные зависимости
-# RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
-
 # Устанавливаем uv
 RUN pip install --no-cache-dir uv
 
