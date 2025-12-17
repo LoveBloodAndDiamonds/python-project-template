@@ -13,7 +13,7 @@
 
 1. Склонируйте репозиторий
 ```bash
-git clone https://github.com/yourusername/python-project-template.git new-project
+git clone https://github.com/LoveBloodAndDiamonds/python-project-template.git new-project
 cd new-project
 ```
 
