@@ -43,21 +43,21 @@ services:
       sh -c "
       uv run --no-dev alembic upgrade head
       &&
-      uv run --no-dev uvicorn src.webadmin.__main__:app
+      uv run --no-dev uvicorn src.web_service.__main__:app
       --host 0.0.0.0
       --port 8000
       --log-level info
       --proxy-headers
       --forwarded-allow-ips=*
       "
+    deploy:
+      resources:
+        limits:
+          cpus: "0.2"
 
   python_service:
     <<: *service-common
     command: "uv run --no-dev -m src.python_service"
-    deploy:
-      resources:
-        limits:
-          cpus: "0.1"
 
 
 volumes:
