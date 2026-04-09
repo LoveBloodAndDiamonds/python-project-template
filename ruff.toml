@@ -19,7 +19,7 @@ lint.select = [
     "PLE",    # pylint errors
     "PLW",    # pylint warnings
     "F822",   # неопределенные имена в __all__
-    # "D",    # правила pydocstyle
+    "D",    # правила pydocstyle
 ]
 # Игнорировать некоторые слишком строгие правила
 lint.ignore = [
