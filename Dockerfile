@@ -16,4 +16,7 @@ COPY uv.lock pyproject.toml /app/
 RUN uv sync
 
 # Копируем приложение
-COPY app /app/app
+COPY src /app/src
+
+# Для удобных импортов внутри приложения
+ENV PYTHONPATH=/app/src

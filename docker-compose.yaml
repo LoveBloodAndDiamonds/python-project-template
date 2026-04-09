@@ -1,16 +1,64 @@
+x-service-common: &service-common
+  env_file:
+    - .env
+  build:
+    context: .
+  volumes:
+    - ./logs:/app/logs
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "50m"
+      max-file: "3"
+  depends_on:
+    postgres:
+      condition: service_healthy
+  restart: unless-stopped
+
 services:
-  app:
-    build:
-      context: .
+  postgres:
+    image: postgres:15
+    restart: always
     env_file:
       - .env
+    environment:
+      - PGDATA=/var/lib/postgresql/data
     volumes:
-      - ./app:/app/app
-      - ./logs:/app/logs
-    command: sh -c "uv run python3 -m app"
-    restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "5m"
-        max-file: "3"
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      timeout: 3s
+      retries: 5
+      # On runtime
+      interval: 600s
+      # On start
+      start_period: 20s
+      start_interval: 2s
+
+  web_service:
+    <<: *service-common
+    ports:
+      - "${APP_PORT}:8000"
+    command: >
+      sh -c "
+      uv run --no-dev alembic upgrade head
+      &&
+      uv run --no-dev uvicorn src.webadmin.__main__:app
+      --host 0.0.0.0
+      --port 8000
+      --log-level info
+      --proxy-headers
+      --forwarded-allow-ips=*
+      "
+
+  python_service:
+    <<: *service-common
+    command: "uv run --no-dev -m src.python_service"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.1"
+
+
+volumes:
+  postgres_data:

@@ -1,0 +1,19 @@
+[project]
+name = ""
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "loguru>=0.7.3",
+    "pydantic-settings>=2.13.1",
+    "sqlalchemy>=2.0.41",
+    "asyncpg>=0.30.0",
+    "alembic>=1.15.2",
+    "greenlet>=3.2.2",
+    "fastapi>=0.115.12",
+    "uvicorn>=0.34.2",
+]
+
+[dependency-groups]
+dev = ["pre-commit>=4.5.1"]
