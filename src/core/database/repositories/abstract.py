@@ -53,7 +53,10 @@ class Repository[AbstractModel]:
         return row[0] if row else None
 
     async def get_many(
-        self, whereclause: ColumnElement[bool] | None = None, limit: int = 999, order_by: Any | None = None
+        self,
+        whereclause: ColumnElement[bool] | None = None,
+        limit: int = 999,
+        order_by: Any | None = None,
     ) -> Sequence[AbstractModel]:
         """Возвращает несколько записей с фильтрацией, лимитом и сортировкой.
 
@@ -92,7 +95,7 @@ class Repository[AbstractModel]:
         statement = select(self.type_model)
         if whereclause is not None:
             statement = statement.where(whereclause)
-        if order_by:
+        if order_by is not None:
             statement = statement.order_by(order_by)
 
         return (await self.session.scalars(statement)).all()
