@@ -18,3 +18,40 @@ dependencies = [
 
 [dependency-groups]
 dev = ["pre-commit>=4.5.1"]
+
+[tool.ruff]
+fix = true
+line-length = 100
+exclude = ["tests", "migrations", "*.html"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "PERF", "FIX002", "PLE", "PLW", "D"]
+ignore = ["E501", "D100", "D104", "D203", "D213"]
+exclude = [".git", "__pycache__", "venv", ".venv", "tests"]
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+skip-magic-trailing-comma = false
+docstring-code-format = true
+
+[tool.pyright]
+include = ["src"]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.venv",
+    "**/.git",
+    "**/.idea",
+    "**/migrations",
+]
+venvPath = "."
+venv = ".venv"
+reportMissingImports = true
+reportMissingTypeStubs = false
+pythonVersion = "3.13"
+typeCheckingMode = "basic"
